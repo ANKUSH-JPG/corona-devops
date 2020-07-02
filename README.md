@@ -55,15 +55,13 @@ As soon as the QAT approves, both the branches of development and production are
 
 ### Developer side :
 
-1. Created a hook for post-commit in local git to automate pushing the code into github repository each time developer commits
+1. Created a hook for post-commit in local git to automate pushing the code into github repository and then trigger the dev1_job in jenkins each time developer commits
 
-   ![Post-Commit](Screenshots/1.jpg)
+![Screenshot (543)](https://user-images.githubusercontent.com/51692515/86372114-67789880-bc9f-11ea-88fd-b8939b463d98.png)
 
-   ![Hooks](Screenshots/2.jpg)
 
-2. Added The webhooks to the Jenkins Github Webhooks in the settings :=> `ip/github-webhook/`
+![Screenshot (542)](https://user-images.githubusercontent.com/51692515/86372121-69daf280-bc9f-11ea-8e4f-0957e9335ed6.png)
 
-![Webhooks](Screenshots/webhook8081.jpg)
 
 
 ### Operations Side:
