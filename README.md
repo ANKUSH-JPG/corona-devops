@@ -82,18 +82,19 @@ As soon as the QAT approves, both the branches of development and production are
 
 ## Actual work happening in this project.
 
-1. Production was behind Testing so only the url which points to port 8081 is ahead of the port 8082, after the commit done by the developer testing is done which is to be approved by the QAT(Quality Assurance Team) department. Until QAT approves production can not be updated.
+1. The testing server was not exposed to the outer world . 
 
+![Screenshot (546)](https://user-images.githubusercontent.com/51692515/86373139-b246e000-bca0-11ea-804e-2ebfa7bb3dce.png)
 
-![Initial](Screenshots/Testingphase1.jpg)
 
 2. QAT team tests and approves(this was built manually as still I don't know about the testing integration part). This can be inferred by the successful build by Project QAT in jenkins.
 
-![Median](Screenshots/QATphase2.jpg)
+3. After the verification is done the testing environment data is succesfully merged with the production environment which was running on another container and was exposed at port 3002 so that outer world can connect. After this both the environment are equal.
 
-3. After the verification is done the testing environment data is succesfully merged with the production environment. After this both the environment are equal.
+![Screenshot (544)](https://user-images.githubusercontent.com/51692515/86373546-28e3dd80-bca1-11ea-8223-d8bcbfcf6025.png)
 
-![Final](Screenshots/Productionphase3.jpg)
+
+![Screenshot (545)](https://user-images.githubusercontent.com/51692515/86373557-2aada100-bca1-11ea-90de-5a69ca68158c.png)
 
 
 ## Steps involved in the configuration of jenkins job creations-
@@ -105,15 +106,17 @@ As soon as the QAT approves, both the branches of development and production are
 * As soon as the developer pushes the code, github webhook will be activated and it will contact jenkins which will pull/fetch the updated code, and move it to the created volume.
 
 
-* I provided the conditional statement to check wether the docker container is already running, if not create it mount the volume and expose it's port 80 to base os port 8081
-`docker run -dit -p 8081:80 -v /jenkins/test/:/usr/local/apache2/htdocs/ --name testos httpd`
+* I provided the conditional statement to check wether the docker container is already running, if not create it mount the volume and runs the container without exposing.
+`docker run -dit -v /jenkins/test/:/usr/local/apache2/htdocs/ --name testing_server httpd`
 
 **Note**- We created a directory inside local host /jenkins/test/
 
-QA team will check the testing environment at this port address.
+QA team will check the testing environment.
 
 
-![01](Screenshots/Testing.jpg)
+
+![1000](https://user-images.githubusercontent.com/51692515/86373951-9e4fae00-bca1-11ea-90a1-a872271a7228.jpg)
+
 
 
 ## 2. Quality Assurance Team(QAT) :
@@ -124,9 +127,6 @@ QA team will check the testing environment at this port address.
 * Details is provided to the additional behaviour so that merging could be done.
 
 
-![02](Screenshots/QAT1.jpg)
-
-
 * Post Build Action details provided, so that push after the merge can be done
 
 
@@ -134,17 +134,18 @@ QA team will check the testing environment at this port address.
 * After the push is being done. This job will call the jobs Production and Testing so that the code can be updated.
 
 
-![03](Screenshots/QAT2.jpg)
+![1001](https://user-images.githubusercontent.com/51692515/86374155-dd7dff00-bca1-11ea-81d7-6d49e7da2a16.jpg)
+
 
 ## 3. Production:
 
 * Whenever the QAT approves the dev1 code is merged with the master and is pushed into github  through webhook which will be activated and it will contact jenkins, then jenkins will pull the updated code, and move it to the created volume.
 
 
-* I provided the conditional statement to check wether the docker conatiner is already running, if not create it mount the volume and expose it's port 80 to base os port 8082.
+* I provided the conditional statement to check wether the docker conatiner is already running, if not create it mount the volume and expose it's port 80 to base os port 3002.
 
-`docker run -dit -p 8082:80 -v /jenkins/prod/:/usr/local/apache2/htdocs/ --name prodos httpd`
+`docker run -dit -p 3002:80 -v /jenkins/prod/:/usr/local/apache2/htdocs/ --name prod_server httpd`
 
 **Note**- We created a directory inside local host /jenkins/prod/
 
-![04](Screenshots/Production.jpg)
+
