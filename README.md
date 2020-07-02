@@ -149,3 +149,4 @@ QA team will check the testing environment.
 **Note**- We created a directory inside local host /jenkins/prod/
 
 
+![1003](https://user-images.githubusercontent.com/51692515/86374401-22a23100-bca2-11ea-9b80-8df874f061bb.jpg)
