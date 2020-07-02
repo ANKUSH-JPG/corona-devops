@@ -35,12 +35,20 @@ As soon as the QAT approves, both the branches of development and production are
 	`docker pull httpd`
 	
    - Container:	To create a persistent storage we link the apache http folder to the testing environment in the local host which was pulled from github as soon as developer pushes it.
-	`docker run -dit -p 8081:80 -v /jenkins/test/:/usr/local/apache2/htdocs/ --name testos httpd`
+	`docker run -dit -p 3002:80 -v /jenkins/test/:/usr/local/apache2/htdocs/ --name prod_server httpd`
+	
+![Screenshot (544)](https://user-images.githubusercontent.com/51692515/86371677-d1dd0900-bc9e-11ea-90b8-6151556d4f21.png)
+
+
 2. Jenkins
    - Github Plugin
 3. ngrok
    To run a particular port-
 	`./ngrok http **port no**`
+	
+
+![Screenshot (545)](https://user-images.githubusercontent.com/51692515/86371756-ea4d2380-bc9e-11ea-9338-c54ba03f9139.png)
+
 
 
 ## Process :
